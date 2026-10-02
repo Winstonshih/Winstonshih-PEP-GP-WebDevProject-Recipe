@@ -22,15 +22,27 @@ window.addEventListener("DOMContentLoaded", () => {
    const addRecipeInstructions=document.getElementById("add-recipe-instructions-input");
    const updateInstructionsName=document.getElementById("update-recipe-instructions-input");
    const deleteRecipeInstructions=document.getElementById("delete-recipe-instructions-input");
-   const recipeListContainer
+   const recipeListContainer=document.getElementById("recipe-list");
+   const addButton=document.getElementById("add-recipe-submit-input");
+   const updateButton=document.getElementById("update-recipe-submit-input");
+   const deleteButton=document.getElementById("delete-recipe-submit-input");
+   const adminLink=document.getElementById("admin-link");
+   const logoutButton=docuement.getElementById("logout-button");
+   const searchInput=documeent.getElementById("search-input");
     /*
      * TODO: Show logout button if auth-token exists in sessionStorage
      */
-
+    if(sessionStorage.getItem("auth-token"))
+    {
+        logoutButton.style.display="inline-block";
+    }
     /*
      * TODO: Show admin link if is-admin flag in sessionStorage is "true"
      */
-
+    if(sessionStorage.getItem("is-admin")==="true")
+    {
+        adminLink.style.display="inline-block";
+    }
     /*
      * TODO: Attach event handlers
      * - Add recipe button → addRecipe()
@@ -39,7 +51,9 @@ window.addEventListener("DOMContentLoaded", () => {
      * - Search button → searchRecipes()
      * - Logout button → processLogout()
      */
-
+    addButton.addEventListener("click", addRecipe);
+    updateButton.addEventListener("click", updateRecipe);
+    deleteButton.addEventListener("click")
     /*
      * TODO: On page load, call getRecipes() to populate the list
      */
