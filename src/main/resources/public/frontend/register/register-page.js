@@ -8,15 +8,15 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * TODO: Get references to various DOM elements
  * - usernameInput, emailInput, passwordInput, repeatPasswordInput, registerButton
  */
-const username=document.getElementById(usernameInput);
-const email=document.getElementById(emailInput);
-const password=document.getElementById(passwordInput);
-const repeatPassword=document.getElementById(repeatPasswordInput);
-const register=document.getElementById(registerButton);
+const username=document.getElementById("usernameInput");
+const email=document.getElementById("emailInput");
+const password=document.getElementById("passwordInput");
+const repeatPassword=document.getElementById("repeatPasswordInput");
+const register=document.getElementById("registerButton");
 /* 
  * TODO: Ensure the register button calls processRegistration when clicked
  */
-register.addEventListener("click", register);
+register.addEventListener("click", processRegistration);
 
 /**
  * TODO: Process Registration Function
@@ -43,13 +43,19 @@ register.addEventListener("click", register);
  */
 async function processRegistration() {
     // Implement registration logic here
-    if(!username||!password||!email||!repeatPassword)
+    const uname=username.value;
+    const pwd=password.value;
+    const e=email.value;
+    const repeat=repeatPassword.value
+    if(!uname||!pwd||!e||!repeat)
     {
         alert("Please fill out all fields to complete registration!");
+        return;
     }
-    if(password!===repeatPassword)
+    if(pwd!==repeat)
     {
         alert("Passwords are not matching.");
+        return;
     }
     // Example placeholder:
     // const registerBody = { username, email, password };
