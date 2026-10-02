@@ -63,9 +63,9 @@ const requestOptions = {
     };
     // await fetch(...)
     try{
-
+        const response=await fetch('${BASE_URL}/register', requestOptions);
     }catch()
     {
-        
+
     }
 }
