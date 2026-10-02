@@ -43,7 +43,14 @@ register.addEventListener("click", register);
  */
 async function processRegistration() {
     // Implement registration logic here
-
+    if(!username||!password||!email||!repeatPassword)
+    {
+        alert("Please fill out all fields to complete registration!");
+    }
+    if(password!===repeatPassword)
+    {
+        alert("Passwords are not matching.");
+    }
     // Example placeholder:
     // const registerBody = { username, email, password };
     const registerBody={username, email, password};
@@ -64,8 +71,21 @@ const requestOptions = {
     // await fetch(...)
     try{
         const response=await fetch('${BASE_URL}/register', requestOptions);
-    }catch()
+        if(response.status===201)
+        {
+            window.location.href="/login";
+        }
+        else if(response.status===409)
+        {
+            alert("Username and email combination exists.");
+        }
+        else
+        {
+            alert("Registration failed!");
+        }
+    }catch(error)
     {
-
+        console.error("Registration error: ", error);
+        alert("Please try registering again!");
     }
 }
