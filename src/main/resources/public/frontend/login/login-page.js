@@ -66,7 +66,7 @@ async function processLogin() {
 
     try {
         // TODO: Send POST request to http://localhost:8081/login using fetch with requestOptions
-        const response=await fetch('${BASE_URL}/login', requestOptions);
+        const response=await fetch(`${BASE_URL}/login`, requestOptions);
         // TODO: If response status is 200
         // - Read the response as text
         // - Response will be a space-separated string: "token123 true"
@@ -87,8 +87,8 @@ async function processLogin() {
         {
             const text=await response.text();
             const [token, isAdmin]=text.split(" ");
-            sessionStorage.setItem(token);
-            sessionStorage.setItem(isAdmin);
+            sessionStorage.setItem("auth-token", token);
+            sessionStorage.setItem("is-admin", isAdmin);
             setTimeout(() => {
                 window.location.href="../recipe/recipe-page.html";
             }, 200);
