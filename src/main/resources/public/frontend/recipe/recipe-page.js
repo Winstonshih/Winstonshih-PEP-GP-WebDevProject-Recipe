@@ -22,6 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
    const addRecipeInstructions=document.getElementById("add-recipe-instructions-input");
    const updateInstructionsName=document.getElementById("update-recipe-instructions-input");
    const deleteRecipeInstructions=document.getElementById("delete-recipe-instructions-input");
+   const recipeListContainer
     /*
      * TODO: Show logout button if auth-token exists in sessionStorage
      */
