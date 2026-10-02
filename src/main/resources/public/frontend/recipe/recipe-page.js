@@ -72,6 +72,20 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function searchRecipes() {
         // Implement search logic here
+        const searchTerm=searchInput.value.trim();
+        try{
+            const response=await fetch(`${BASE_URL}/recipes?name=${encodeURIComponent(searchTerm)}`);
+            if(response.status!==200)
+            {
+                throw new Error("Failed to search recipes!")
+            }
+            recipes=await response.json();
+            refreshRecipeList();
+        }catch(error)
+        {
+            console.error("Search error: ", error);
+            alert("Try searching again!");
+        }
     }
 
     /**
