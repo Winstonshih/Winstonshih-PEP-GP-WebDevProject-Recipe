@@ -27,8 +27,9 @@ window.addEventListener("DOMContentLoaded", () => {
    const updateButton=document.getElementById("update-recipe-submit-input");
    const deleteButton=document.getElementById("delete-recipe-submit-input");
    const adminLink=document.getElementById("admin-link");
-   const logoutButton=docuement.getElementById("logout-button");
-   const searchInput=documeent.getElementById("search-input");
+   const logoutButton=document.getElementById("logout-button");
+   const searchInput=document.getElementById("search-input");
+   const searchButton=document.getElementById("search-button");
     /*
      * TODO: Show logout button if auth-token exists in sessionStorage
      */
@@ -53,12 +54,15 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     addButton.addEventListener("click", addRecipe);
     updateButton.addEventListener("click", updateRecipe);
-    deleteButton.addEventListener("click")
+    deleteButton.addEventListener("click", deleteRecipe);
+    searchButton.addEventListener("click", searchRecipe);
+    logoutButton.addEventListener("click", processLogout);
     /*
      * TODO: On page load, call getRecipes() to populate the list
      */
-
-
+    window.addEventListener("DOMContentLoaded", () => {
+        getRecipes();
+    });
     /**
      * TODO: Search Recipes Function
      * - Read search term from input field
