@@ -9,7 +9,7 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * - usernameInput, emailInput, passwordInput, repeatPasswordInput, registerButton
  */
 const usernameInput=document.getElementById("username-input");
-const emaiInput=document.getElementById("email-input");
+const emailInput=document.getElementById("email-input");
 const passwordInput=document.getElementById("password-input");
 const repeatPassword=document.getElementById("repeat-password-input");
 const register=document.getElementById("register-button");
