@@ -11,11 +11,14 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * - login button
  * - logout button (optional, for token testing)
  */
-
+const username=document.getElementById("login-input");
+const password=document.getElementById("password-input");
+const login=document.getElementById("login-button")
 /* 
  * TODO: Add click event listener to login button
  * - Call processLogin on click
  */
+login.addEventListener("click", processLogin);
 
 
 /**
@@ -42,9 +45,10 @@ const BASE_URL = "http://localhost:8081"; // backend URL
 async function processLogin() {
     // TODO: Retrieve username and password from input fields
     // - Trim input and validate that neither is empty
-
+    const uname=username.value.trim();
+    const pwd=password.value.trim();
     // TODO: Create a requestBody object with username and password
-
+    const requestBody={uname, pwd};
     const requestOptions = {
         method: "POST",
         mode: "cors",
@@ -62,13 +66,12 @@ async function processLogin() {
 
     try {
         // TODO: Send POST request to http://localhost:8081/login using fetch with requestOptions
-
+        const response=await fetch('${BASE_URL}/login', requestOptions);
         // TODO: If response status is 200
         // - Read the response as text
         // - Response will be a space-separated string: "token123 true"
         // - Split the string into token and isAdmin flag
         // - Store both in sessionStorage using sessionStorage.setItem()
-
         // TODO: Optionally show the logout button if applicable
 
         // TODO: Add a small delay (e.g., 500ms) using setTimeout before redirecting
@@ -80,9 +83,28 @@ async function processLogin() {
         // TODO: For any other status code
         // - Alert the user with a generic error like "Unknown issue!"
 
+        if(response.status===200)
+        {
+            const text=await response.text();
+            const [token, isAdmin]=text.split(" ");
+            sessionStorage.setItem(token);
+            sessionStorage.setItem(isAdmin);
+            setTimeout(() => {
+                window.location.href="/recipe/recipe-page.html";
+            }, 200);
+        }else if(response.status===401)
+        {
+            alert("Incorrect login!");
+        }
+        else{
+            alert("Unknown issue!");
+        }
+        
     } catch (error) {
         // TODO: Handle any network or unexpected errors
         // - Log the error and alert the user
+        console.error("Login error: ", error);
+        alert("Login again!");
     }
 }
 

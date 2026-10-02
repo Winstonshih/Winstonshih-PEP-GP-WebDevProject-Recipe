@@ -8,11 +8,11 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * TODO: Get references to various DOM elements
  * - usernameInput, emailInput, passwordInput, repeatPasswordInput, registerButton
  */
-const username=document.getElementById("usernameInput");
-const email=document.getElementById("emailInput");
-const password=document.getElementById("passwordInput");
-const repeatPassword=document.getElementById("repeatPasswordInput");
-const register=document.getElementById("registerButton");
+const username=document.getElementById("login-input");
+const email=document.getElementById("email-input");
+const password=document.getElementById("password-input");
+const repeatPassword=document.getElementById("repeat-password-input");
+const register=document.getElementById("register-button");
 /* 
  * TODO: Ensure the register button calls processRegistration when clicked
  */
@@ -43,8 +43,8 @@ register.addEventListener("click", processRegistration);
  */
 async function processRegistration() {
     // Implement registration logic here
-    const uname=username.value;
-    const pwd=password.value;
+    const uname=username.value.trim();
+    const pwd=password.value.trim();
     const e=email.value;
     const repeat=repeatPassword.value
     if(!uname||!pwd||!e||!repeat)
@@ -79,7 +79,7 @@ const requestOptions = {
         const response=await fetch('${BASE_URL}/register', requestOptions);
         if(response.status===201)
         {
-            window.location.href="/login";
+            window.location.href="/login/login-page.html";
         }
         else if(response.status===409)
         {
