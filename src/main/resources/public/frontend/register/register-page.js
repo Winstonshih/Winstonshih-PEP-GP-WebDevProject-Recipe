@@ -60,7 +60,7 @@ async function processRegistration() {
     // Example placeholder:
     // const registerBody = { username, email, password };
     const registerBody={uname, e, pwd};
-const requestOptions = {
+    const requestOptions = {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
