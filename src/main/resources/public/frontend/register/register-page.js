@@ -62,16 +62,9 @@ async function processRegistration() {
     const registerBody={uname, e, pwd};
     const requestOptions = {
         method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
         headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "*"
+            "Content-Type": "application/json"
         },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
         body: JSON.stringify(registerBody)
     };
     // await fetch(...)
