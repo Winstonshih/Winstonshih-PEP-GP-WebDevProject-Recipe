@@ -90,7 +90,7 @@ async function processLogin() {
             sessionStorage.setItem(token);
             sessionStorage.setItem(isAdmin);
             setTimeout(() => {
-                window.location.href="/recipe/recipe-page.html";
+                window.location.href="../recipe/recipe-page.html";
             }, 200);
         }else if(response.status===401)
         {
