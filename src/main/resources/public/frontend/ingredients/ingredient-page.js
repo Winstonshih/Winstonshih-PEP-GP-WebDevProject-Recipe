@@ -63,7 +63,7 @@ async function addIngredient() {
                 },
                 body: JSON.stringify({name})
             });
-            if(res.status===200)
+            if(res.ok)
             {
                 addIngredientNameInput.value="";
                 await getIngredients();
@@ -88,6 +88,25 @@ async function addIngredient() {
  */
 async function getIngredients() {
     // Implement get ingredients logic here
+    try{
+        const token=sessionStorage.getItem("auth-token");
+        const res= await fetch(`${BASE_URL}/ingredients`,{
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-type": "application/json"
+            }
+        });
+        if(res.status===200)
+        {
+            ingredients=await res.json();
+            refreshIngredientList();
+        }
+    }catch(e)
+    {
+        console.error("Get ingredient error: ", e);
+        alert("Failed to get all ingredients.");
+    }
 }
 
 
@@ -104,6 +123,12 @@ async function getIngredients() {
  */
 async function deleteIngredient() {
     // Implement delete ingredient logic here
+    try{
+
+    }catch(e)
+    {
+
+    }
 }
 
 
