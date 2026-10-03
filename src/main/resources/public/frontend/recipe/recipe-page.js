@@ -187,6 +187,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 alert("Please input recipe name!");
                 return;
             }
+            await getReceipes()
             const deletedRecipe=recipes.find(r=> r.name===name);
             if(!deletedRecipe)
             {
