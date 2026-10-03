@@ -10,11 +10,8 @@ let recipes = [];
 window.addEventListener("DOMContentLoaded", () => {
 
     /* 
-     * TODO: Get references to various DOM elements
-     * - Recipe name and instructions fields (add, update, delete)
-     * - Recipe list container
-     * - Admin link and logout button
-     * - Search input
+     * References to various DOM elements like recipe name and instructions fields (add, update, delete), recipe list container, admin link and logout button,
+     * and search input button.
     */
    const addRecipeName=document.getElementById("add-recipe-name-input");
    const updateRecipeName=document.getElementById("update-recipe-name-input");
@@ -30,7 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
    const searchInput=document.getElementById("search-input");
    const searchButton=document.getElementById("search-button");
     /*
-     * TODO: Show logout button if auth-token exists in sessionStorage
+     * Shows logout button if auth-token exists in sessionStorage.
      */
     if(sessionStorage.getItem("auth-token"))
     {
@@ -40,7 +37,7 @@ window.addEventListener("DOMContentLoaded", () => {
         logoutButton.style.display="none";
     }
     /*
-     * TODO: Show admin link if is-admin flag in sessionStorage is "true"
+     * Shows admin link if is-admin flag in sessionStorage is "true"
      */
     if(sessionStorage.getItem("is-admin")==="true")
     {
@@ -50,12 +47,7 @@ window.addEventListener("DOMContentLoaded", () => {
         adminLink.style.display="none";
     }
     /*
-     * TODO: Attach event handlers
-     * - Add recipe button → addRecipe()
-     * - Update recipe button → updateRecipe()
-     * - Delete recipe button → deleteRecipe()
-     * - Search button → searchRecipes()
-     * - Logout button → processLogout()
+     *  Attaches event handlers for add recipe, updatee recipe, delete recipe, search, and logout buttons.
      */
     addButton.addEventListener("click", addRecipe);
     updateButton.addEventListener("click", updateRecipe);
@@ -63,18 +55,13 @@ window.addEventListener("DOMContentLoaded", () => {
     searchButton.addEventListener("click", searchRecipes);
     logoutButton.addEventListener("click", processLogout);
     /*
-     * TODO: On page load, call getRecipes() to populate the list
+     * On page load, call getRecipes() to populate the list
      */
     getRecipes();
     /**
-     * TODO: Search Recipes Function
-     * - Read search term from input field
-     * - Send GET request with name query param
-     * - Update the recipe list using refreshRecipeList()
-     * - Handle fetch errors and alert user
+     * Search Recipes function based on input field.
      */
     async function searchRecipes() {
-        // Implement search logic here
         const searchTerm=searchInput.value.trim();
         try{
             const response=await fetch(`${BASE_URL}/recipes?name=${encodeURIComponent(searchTerm)}`);
@@ -92,15 +79,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * TODO: Add Recipe Function
-     * - Get values from add form inputs
-     * - Validate both name and instructions
-     * - Send POST request to /recipes
-     * - Use Bearer token from sessionStorage
-     * - On success: clear inputs, fetch latest recipes, refresh the list
+     * Add recipe method.
      */
     async function addRecipe() {
-        // Implement add logic here
         const name=addRecipeName.value.trim();
         const instructions=addRecipeInstructions.value.trim();
         try{
@@ -132,12 +113,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * TODO: Update Recipe Function
-     * - Get values from update form inputs
-     * - Validate both name and updated instructions
-     * - Fetch current recipes to locate the recipe by name
-     * - Send PUT request to update it by ID
-     * - On success: clear inputs, fetch latest recipes, refresh the list
+     * Update recipe from list method.
      */
     async function updateRecipe() {
         // Implement update logic here
@@ -180,14 +156,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * TODO: Delete Recipe Function
-     * - Get recipe name from delete input
-     * - Find matching recipe in list to get its ID
-     * - Send DELETE request using recipe ID
-     * - On success: refresh the list
+     * Delete recipe from list method.
      */
     async function deleteRecipe() {
-        // Implement delete logic here
         const name=deleteRecipeName.value.trim();
         try{
             if(!name)
@@ -227,13 +198,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * TODO: Get Recipes Function
-     * - Fetch all recipes from backend
-     * - Store in recipes array
-     * - Call refreshRecipeList() to display
+     * Retrieve recipes from list method
      */
     async function getRecipes() {
-        // Implement get logic here
         try{
             const token=sessionStorage.getItem("auth-token");
             const res= await fetch(`${BASE_URL}/recipes`,{
@@ -257,13 +224,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * TODO: Refresh Recipe List Function
-     * - Clear current list in DOM
-     * - Create <li> elements for each recipe with name + instructions
-     * - Append to list container
+     * Refresh Recipe List Function
      */
     function refreshRecipeList() {
-        // Implement refresh logic here
         recipeListContainer.innerHTML="";
         recipes.forEach(recipe=>{
             const li=document.createElement("li");
@@ -273,14 +236,9 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * TODO: Logout Function
-     * - Send POST request to /logout
-     * - Use Bearer token from sessionStorage
-     * - On success: clear sessionStorage and redirect to login
-     * - On failure: alert the user
+     * Log out from account method.
      */
     async function processLogout() {
-        // Implement logout logic here
         try{
             const token=sessionStorage.getItem("auth-token");
             const res= await fetch(`${BASE_URL}/logout`,{
@@ -305,5 +263,4 @@ window.addEventListener("DOMContentLoaded", () => {
             alert("Log out again!");
         }
     }
-
 });

@@ -5,12 +5,7 @@
 const BASE_URL = "http://localhost:8081"; // backend URL
 
 /* 
- * TODO: Get references to various DOM elements
- * - addIngredientNameInput
- * - deleteIngredientNameInput
- * - ingredientListContainer
- * - searchInput (optional for future use)
- * - adminLink (if visible conditionally)
+ * References to various DOM elements like addIngredientNameInput, deleteIngredientNameInput, ingredientListContainer, and adminLink.
  */
 const addIngredientNameInput=document.getElementById("add-ingredient-name-input");
 const deleteIngredientNameInput=document.getElementById("delete-ingredient-name-input");
@@ -19,34 +14,22 @@ const adminLink=document.getElementById("admin-link");
 const addIngredientSubmitButton=document.getElementById("add-ingredient-submit-button");
 const deleteIngredientSubmitButton=document.getElementById("delete-ingredient-submit-button");
 /* 
- * TODO: Attach 'onclick' events to:
- * - "add-ingredient-submit-button" → addIngredient()
- * - "delete-ingredient-submit-button" → deleteIngredient()
+ * Onclick events for adding or deleting ingredients if buttons are pressed.
  */
 addIngredientSubmitButton.addEventListener("click", addIngredient);
 deleteIngredientSubmitButton.addEventListener("click", deleteIngredient);
 /*
- * TODO: Create an array to keep track of ingredients
+ * An array for tracking all ingredients.
  */
 let ingredients=[];
-/* 
- * TODO: On page load, call getIngredients()
+/**
+ * Retrieves all ingredients.
  */
 getIngredients();
-
 /**
- * TODO: Add Ingredient Function
- * 
- * Requirements:
- * - Read and trim value from addIngredientNameInput
- * - Validate input is not empty
- * - Send POST request to /ingredients
- * - Include Authorization token from sessionStorage
- * - On success: clear input, call getIngredients() and refreshIngredientList()
- * - On failure: alert the user
+ * Method to add ingredient to recipe.
  */
 async function addIngredient() {
-    // Implement add ingredient logic here
     const name=addIngredientNameInput.value.trim();
         try{
             if(!name)
@@ -75,19 +58,10 @@ async function addIngredient() {
             alert("Failed to add ingredient.");
         }
 }
-
-
 /**
- * TODO: Get Ingredients Function
- * 
- * Requirements:
- * - Fetch all ingredients from backend
- * - Store result in `ingredients` array
- * - Call refreshIngredientList() to display them
- * - On error: alert the user
+ * Method to retrieve ingredient from recipe.
  */
 async function getIngredients() {
-    // Implement get ingredients logic here
     try{
         const token=sessionStorage.getItem("auth-token");
         const res= await fetch(`${BASE_URL}/ingredients`,{
@@ -108,21 +82,10 @@ async function getIngredients() {
         alert("Failed to get all ingredients.");
     }
 }
-
-
 /**
- * TODO: Delete Ingredient Function
- * 
- * Requirements:
- * - Read and trim value from deleteIngredientNameInput
- * - Search ingredientListContainer's <li> elements for matching name
- * - Determine ID based on index (or other backend logic)
- * - Send DELETE request to /ingredients/{id}
- * - On success: call getIngredients() and refreshIngredientList(), clear input
- * - On failure or not found: alert the user
+ * Method to delete ingredient from recipe.
  */
 async function deleteIngredient() {
-    // Implement delete ingredient logic here
     try{
         const name=deleteIngredientNameInput.value.trim();
         if(!name)
@@ -156,20 +119,10 @@ async function deleteIngredient() {
         alert("Failed to delete all ingredients.");
     }
 }
-
-
 /**
- * TODO: Refresh Ingredient List Function
- * 
- * Requirements:
- * - Clear ingredientListContainer
- * - Loop through `ingredients` array
- * - For each ingredient:
- *   - Create <li> and inner <p> with ingredient name
- *   - Append to container
+ * Method to refresh Ingredient List Function
  */
 function refreshIngredientList() {
-    // Implement ingredient list rendering logic here
     ingredientListContainer.innerHTML="";
     ingredients.forEach(ingredient=>{
         const li=document.createElement("li");
