@@ -11,8 +11,8 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * - login button
  * - logout button (optional, for token testing)
  */
-const username=document.getElementById("login-input");
-const password=document.getElementById("password-input");
+const usernameInput=document.getElementById("login-input");
+const passwordInput=document.getElementById("password-input");
 const login=document.getElementById("login-button")
 /* 
  * TODO: Add click event listener to login button
@@ -45,10 +45,10 @@ login.addEventListener("click", processLogin);
 async function processLogin() {
     // TODO: Retrieve username and password from input fields
     // - Trim input and validate that neither is empty
-    const uname=username.value.trim();
-    const pwd=password.value.trim();
+    const username=usernameInput.value.trim();
+    const password=passwordInput.value.trim();
     // TODO: Create a requestBody object with username and password
-    const requestBody={uname, pwd};
+    const requestBody={username, password};
     const requestOptions = {
         method: "POST",
         mode: "cors",
