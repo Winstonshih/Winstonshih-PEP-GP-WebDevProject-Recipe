@@ -49,9 +49,10 @@ async function addIngredient() {
     // Implement add ingredient logic here
     const name=addIngredientNameInput.value.trim();
         try{
-            if(!ingredientName)
+            if(!name)
             {
                 alert("Invalid ingredient name!");
+                return;
             }
             const res= await fetch(`${BASE_URL}/ingredients`,{
                 method: "POST",
