@@ -127,11 +127,33 @@ async function deleteIngredient() {
         const name=deleteIngredientNameInput.value.trim();
         if(!name)
         {
-            
+            alert("Input ingredient you want to delete: ");
+            return;
+        }
+        await getIngredients();
+        const ingredient = ingredients.find(i => i.name === name);
+        if (!ingredient) {
+            alert("Ingredient not found!");
+            return;
+        }
+        const token = sessionStorage.getItem("auth-token");
+        const res = await fetch(`${BASE_URL}/ingredients/${ingredient.id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-type": "application/json"
+            }
+        });
+        if(res.status===200)
+        {
+            deleteIngredientNameInput.value = "";
+            await getIngredients();
+            refreshIngredientList();
         }
     }catch(e)
     {
-
+        console.error("Delete ingredient error: ", e);
+        alert("Failed to delete all ingredients.");
     }
 }
 
