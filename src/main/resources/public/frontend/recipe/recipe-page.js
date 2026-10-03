@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
      * - Search input
     */
    const addRecipeName=document.getElementById("add-recipe-name-input");
-   const updateRecipeName=document.getElementById("updatee-recipe-name-input");
+   const updateRecipeName=document.getElementById("update-recipe-name-input");
    const deleteRecipeName=document.getElementById("delete-recipe-name-input");
    const addRecipeInstructions=document.getElementById("add-recipe-instructions-input");
    const updateInstructionsName=document.getElementById("update-recipe-instructions-input");
@@ -98,6 +98,32 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function addRecipe() {
         // Implement add logic here
+        const recipeName=addRecipeName.value.trim();
+        const instructions=addRecipeInstructions.value.trim();
+        try{
+            if(!recipeName||!instructions)
+            {
+                alert("Invalid recipe name or instructions!");
+            }
+            const res= await fetch(`${BASE_URL}/recipes`,{
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({recipeName, instructions})
+            });
+            if(response.status===200)
+            {
+                addRecipeName="";
+                addRecipeInstructions="";
+                await getRecipes();
+            }
+        }catch(e)
+        {
+            console.error("Add recipe error: ", e);
+            alert("Failed to add recipe");
+        }
     }
 
     /**
@@ -110,6 +136,32 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function updateRecipe() {
         // Implement update logic here
+        const recipeName=updateRecipeName.value.trim();
+        const instructions=updateInstructionsName.value.trim();
+        try{
+            if(!recipeName||!instructions)
+            {
+                alert("Invalid recipe name or instructions!");
+            }
+            const res= await fetch(`${BASE_URL}/recipes`,{
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({recipeName, instructions})
+            });
+            if(response.status===200)
+            {
+                addRecipeName="";
+                addRecipeInstructions="";
+                await getRecipes();
+            }
+        }catch(e)
+        {
+            console.error("Add recipe error: ", e);
+            alert("Failed to add recipe");
+        }
     }
 
     /**
@@ -132,7 +184,7 @@ window.addEventListener("DOMContentLoaded", () => {
     async function getRecipes() {
         // Implement get logic here
         try{
-            const res= await fetch(`${BASE_URL}/logout`,{
+            const res= await fetch(`${BASE_URL}/recipes`,{
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -146,7 +198,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         }catch(e)
         {
-            console.error("Get recipes error: ", error);
+            console.error("Get recipes error: ", e);
             alert("Failed to retrieve recipes.")
         }
         
