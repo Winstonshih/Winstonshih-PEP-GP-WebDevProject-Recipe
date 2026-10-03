@@ -97,7 +97,7 @@ async function getIngredients() {
                 "Content-type": "application/json"
             }
         });
-        if(res.status===200)
+        if(res.ok)
         {
             ingredients=await res.json();
             refreshIngredientList();
@@ -144,7 +144,7 @@ async function deleteIngredient() {
                 "Content-type": "application/json"
             }
         });
-        if(res.status===200)
+        if(res.ok)
         {
             deleteIngredientNameInput.value = "";
             await getIngredients();
