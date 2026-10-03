@@ -78,7 +78,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const searchTerm=searchInput.value.trim();
         try{
             const response=await fetch(`${BASE_URL}/recipes?name=${encodeURIComponent(searchTerm)}`);
-            if(response.status!==200)
+            if(!response.ok)
             {
                 throw new Error("Failed to search recipes!")
             }
@@ -118,7 +118,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({name, instructions})
             });
-            if(res.status===200)
+            if(res.ok)
             {
                 addRecipeName.value="";
                 addRecipeInstructions.value="";
@@ -148,7 +148,7 @@ window.addEventListener("DOMContentLoaded", () => {
             {
                 alert("Invalid recipe name or instructions!");
             }
-            const token=sessionStorage.addItem("auth-token");
+            const token=sessionStorage.getItem("auth-token");
             const res= await fetch(`${BASE_URL}/recipes/{recipe.id}`,{
                 method: "PUT",
                 headers: {
@@ -159,8 +159,8 @@ window.addEventListener("DOMContentLoaded", () => {
             });
             if(res.status===200)
             {
-                addRecipeName.value="";
-                addRecipeInstructions.value="";
+                updateRecipeName.value="";
+                updateRecipeInstructions.value="";
                 await getRecipes();
                 refreshRecipeList();
             }
@@ -202,7 +202,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     "Content-type": "application/json"
                 }
             });
-            if(res.status===200)
+            if(res.ok)
             {
                 deleteRecipeName.value="";
                 refreshRecipeList();
@@ -231,7 +231,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     "Content-type": "application/json"
                 }
             });
-            if(res.status===200)
+            if(res.ok)
             {
                 recipes=await res.json();
                 refreshRecipeList();
@@ -281,7 +281,7 @@ window.addEventListener("DOMContentLoaded", () => {
             if(res.status===200)
             {
                 sessionStorage.clear();
-                window.location.href="../login/login.html";
+                window.location.href="../login/login-page.html";
             }
             else
             {
