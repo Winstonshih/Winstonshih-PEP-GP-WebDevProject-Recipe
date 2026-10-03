@@ -147,9 +147,17 @@ window.addEventListener("DOMContentLoaded", () => {
             if(!name||!instructions)
             {
                 alert("Invalid recipe name or instructions!");
+                return;
+            }
+            await getRecipes();
+            const recipe=recipes.find(r=>r.name===name);
+            if(!recipe)
+            {
+                alert("Recipe not found!");
+                return;
             }
             const token=sessionStorage.getItem("auth-token");
-            const res= await fetch(`${BASE_URL}/recipes/{recipe.id}`,{
+            const res= await fetch(`${BASE_URL}/recipes/${recipe.id}`,{
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -205,7 +213,7 @@ window.addEventListener("DOMContentLoaded", () => {
             if(res.ok)
             {
                 deleteRecipeName.value="";
-                refreshRecipeList();
+                await getRecipes();
             }
         }catch(e)
         {
