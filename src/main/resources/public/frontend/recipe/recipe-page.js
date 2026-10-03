@@ -21,7 +21,6 @@ window.addEventListener("DOMContentLoaded", () => {
    const deleteRecipeName=document.getElementById("delete-recipe-name-input");
    const addRecipeInstructions=document.getElementById("add-recipe-instructions-input");
    const updateInstructionsName=document.getElementById("update-recipe-instructions-input");
-   const deleteRecipeInstructions=document.getElementById("delete-recipe-instructions-input");
    const recipeListContainer=document.getElementById("recipe-list");
    const addButton=document.getElementById("add-recipe-submit-input");
    const updateButton=document.getElementById("update-recipe-submit-input");
@@ -181,6 +180,36 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function deleteRecipe() {
         // Implement delete logic here
+        const name=deleteRecipeName.value.trim();
+        try{
+            if(!name)
+            {
+                alert("Please input recipe name!");
+                return;
+            }
+            const deletedRecipe=recipes.find(r=> r.name===name);
+            if(!deletedRecipe)
+            {
+                alert("Recipe not found!");
+            }
+            const token=sessionStorage.getItem("auth-token");
+            const res= await fetch(`${BASE_URL}/recipes/recipe.id`,{
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                }
+            });
+            if(res.status===200)
+            {
+                deleteRecipeName.value="";
+                refreshRecipeList();
+            }
+        }catch(e)
+        {
+            console.error("Delete recipe error: ", e);
+            alert("Failed to delete recipe");
+        }
     }
 
     /**
@@ -192,6 +221,7 @@ window.addEventListener("DOMContentLoaded", () => {
     async function getRecipes() {
         // Implement get logic here
         try{
+            const token=sessionStorage.getItem("auth-token");
             const res= await fetch(`${BASE_URL}/recipes`,{
                 method: "GET",
                 headers: {

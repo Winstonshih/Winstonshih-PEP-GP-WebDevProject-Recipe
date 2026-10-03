@@ -47,7 +47,7 @@ document.addEventListener("click", getIngredients);
  */
 async function addIngredient() {
     // Implement add ingredient logic here
-    const ingredientName=addIngredientNameInput.value.trim();
+    const name=addIngredientNameInput.value.trim();
         try{
             if(!ingredientName)
             {
@@ -59,7 +59,7 @@ async function addIngredient() {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify({ingredientName})
+                body: JSON.stringify({name})
             });
             if(res.status===200)
             {
