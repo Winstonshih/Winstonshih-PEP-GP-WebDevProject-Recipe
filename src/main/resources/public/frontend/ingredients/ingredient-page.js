@@ -54,6 +54,7 @@ async function addIngredient() {
                 alert("Invalid ingredient name!");
                 return;
             }
+            const token=sessionStorage.getItem("auth-token");
             const res= await fetch(`${BASE_URL}/ingredients`,{
                 method: "POST",
                 headers: {

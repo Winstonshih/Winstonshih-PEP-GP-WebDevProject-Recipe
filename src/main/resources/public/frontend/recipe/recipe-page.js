@@ -191,9 +191,10 @@ window.addEventListener("DOMContentLoaded", () => {
             if(!deletedRecipe)
             {
                 alert("Recipe not found!");
+                return;
             }
             const token=sessionStorage.getItem("auth-token");
-            const res= await fetch(`${BASE_URL}/recipes/recipe.id`,{
+            const res= await fetch(`${BASE_URL}/recipes/${deletedRecipe.id}`,{
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`,
