@@ -168,7 +168,7 @@ window.addEventListener("DOMContentLoaded", () => {
             if(res.ok)
             {
                 updateRecipeName.value="";
-                updateInstructionName.value="";
+                updateInstructionsName.value="";
                 await getRecipes();
                 refreshRecipeList();
             }
