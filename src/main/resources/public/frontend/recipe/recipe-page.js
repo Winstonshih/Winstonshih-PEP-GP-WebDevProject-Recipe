@@ -215,6 +215,10 @@ window.addEventListener("DOMContentLoaded", () => {
                 deleteRecipeName.value="";
                 await getRecipes();
             }
+            else
+            {
+                alert("Failed to delete recipe!");
+            }
         }catch(e)
         {
             console.error("Delete recipe error: ", e);
