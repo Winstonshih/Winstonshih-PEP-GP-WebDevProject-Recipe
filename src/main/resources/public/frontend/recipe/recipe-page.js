@@ -131,6 +131,25 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function getRecipes() {
         // Implement get logic here
+        try{
+            const res= await fetch(`${BASE_URL}/logout`,{
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                }
+            });
+            if(res.status===200)
+            {
+                recipes=await res.json();
+                refreshRecipeList();
+            }
+        }catch(e)
+        {
+            console.error("Get recipes error: ", error);
+            alert("Failed to retrieve recipes.")
+        }
+        
     }
 
     /**
@@ -141,6 +160,12 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     function refreshRecipeList() {
         // Implement refresh logic here
+        recipeListContainer.innerHTML="";
+        recipes.forEach(recipe=>{
+            const li=document.createElement("li");
+            li.textContent=`${recipe.name}: ${recipe.instructions}`
+            recipeListContainer.appendChild(li);
+        });
     }
 
     /**
@@ -152,6 +177,30 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function processLogout() {
         // Implement logout logic here
+        try{
+            const token=sessionStorage.getItem("auth-token");
+            const res= await fetch(`${BASE_URL}/logout`,{
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                }
+            });
+            if(res.status===200)
+            {
+                sessionStorage.clear();
+                window.location.href="../login/login.html";
+            }
+            else
+            {
+                alert("Log out failed!");
+            }
+            alert("Logged out successfully!");
+        }catch(error)
+        {
+            console.error("Log out error: ", error);
+            alert("Log out again!");
+        }
     }
 
 });
