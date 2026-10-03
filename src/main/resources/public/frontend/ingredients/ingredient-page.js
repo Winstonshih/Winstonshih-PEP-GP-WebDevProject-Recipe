@@ -124,7 +124,7 @@ async function getIngredients() {
 async function deleteIngredient() {
     // Implement delete ingredient logic here
     try{
-
+        const name=deleteIngredientNameInput.value.trim();
     }catch(e)
     {
 
