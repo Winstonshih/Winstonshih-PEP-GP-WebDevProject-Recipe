@@ -4,7 +4,7 @@
 
 const BASE_URL = "http://localhost:8081"; // backend URL
 
-const recipes = [];
+let recipes = [];
 
 // Wait for DOM to fully load before accessing elements
 window.addEventListener("DOMContentLoaded", () => {
@@ -65,9 +65,7 @@ window.addEventListener("DOMContentLoaded", () => {
     /*
      * TODO: On page load, call getRecipes() to populate the list
      */
-    window.addEventListener("DOMContentLoaded", () => {
-        getRecipes();
-    });
+    getRecipes();
     /**
      * TODO: Search Recipes Function
      * - Read search term from input field
@@ -109,6 +107,7 @@ window.addEventListener("DOMContentLoaded", () => {
             if(!name||!instructions)
             {
                 alert("Invalid recipe name or instructions!");
+                return;
             }
             const token=sessionStorage.getItem("auth-token");
             const res= await fetch(`${BASE_URL}/recipes`,{
@@ -149,15 +148,16 @@ window.addEventListener("DOMContentLoaded", () => {
             {
                 alert("Invalid recipe name or instructions!");
             }
-            const res= await fetch(`${BASE_URL}/recipes`,{
-                method: "POST",
+            const token=sessionStorage.addItem("auth-token");
+            const res= await fetch(`${BASE_URL}/recipes/{recipe.id}`,{
+                method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify({name, instructions})
             });
-            if(response.status===200)
+            if(res.status===200)
             {
                 addRecipeName.value="";
                 addRecipeInstructions.value="";
@@ -166,8 +166,8 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         }catch(e)
         {
-            console.error("Add recipe error: ", e);
-            alert("Failed to add recipe");
+            console.error("Update recipe error: ", e);
+            alert("Failed to update recipe");
         }
     }
 
@@ -187,7 +187,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 alert("Please input recipe name!");
                 return;
             }
-            await getReceipes()
+            await getRecipes()
             const deletedRecipe=recipes.find(r=> r.name===name);
             if(!deletedRecipe)
             {
@@ -287,7 +287,6 @@ window.addEventListener("DOMContentLoaded", () => {
             {
                 alert("Log out failed!");
             }
-            alert("Logged out successfully!");
         }catch(error)
         {
             console.error("Log out error: ", error);
