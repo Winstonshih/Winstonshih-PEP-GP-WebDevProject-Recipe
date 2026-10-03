@@ -37,12 +37,18 @@ window.addEventListener("DOMContentLoaded", () => {
     {
         logoutButton.style.display="inline-block";
     }
+    else{
+        logoutButton.style.display="none";
+    }
     /*
      * TODO: Show admin link if is-admin flag in sessionStorage is "true"
      */
     if(sessionStorage.getItem("is-admin")==="true")
     {
         adminLink.style.display="inline-block";
+    }
+    else{
+        adminLink.style.display="none";
     }
     /*
      * TODO: Attach event handlers
@@ -98,10 +104,10 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function addRecipe() {
         // Implement add logic here
-        const recipeName=addRecipeName.value.trim();
+        const name=addRecipeName.value.trim();
         const instructions=addRecipeInstructions.value.trim();
         try{
-            if(!recipeName||!instructions)
+            if(!name||!instructions)
             {
                 alert("Invalid recipe name or instructions!");
             }
@@ -112,7 +118,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify({recipeName, instructions})
+                body: JSON.stringify({name, instructions})
             });
             if(res.status===200)
             {
@@ -137,10 +143,10 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function updateRecipe() {
         // Implement update logic here
-        const recipeName=updateRecipeName.value.trim();
+        const name=updateRecipeName.value.trim();
         const instructions=updateInstructionsName.value.trim();
         try{
-            if(!recipeName||!instructions)
+            if(!name||!instructions)
             {
                 alert("Invalid recipe name or instructions!");
             }
@@ -150,14 +156,14 @@ window.addEventListener("DOMContentLoaded", () => {
                     "Authorization": `Bearer ${token}`,
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify({recipeName, instructions})
+                body: JSON.stringify({name, instructions})
             });
             if(response.status===200)
             {
                 addRecipeName.value="";
                 addRecipeInstructions.value="";
                 await getRecipes();
-                refreshRecipeList()
+                refreshRecipeList();
             }
         }catch(e)
         {
