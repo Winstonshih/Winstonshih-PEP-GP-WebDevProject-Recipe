@@ -13,20 +13,26 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * - adminLink (if visible conditionally)
  */
 const addIngredientNameInput=document.getElementById("add-ingredient-name-input");
+const deleteIngredientNameInput=document.getElementById("delete-ingredient-name-input");
+const ingredientListContainer=document.getElementById("ingredient-list");
+const adminLink=document.getElementById("admin-link");
+const addIngredientSubmitButton=document.getElementById("add-ingredient-submit-button");
+const deleteIngredientSubmitButton=document.getElementById("delete-ingredient-submit-button");
 /* 
  * TODO: Attach 'onclick' events to:
  * - "add-ingredient-submit-button" → addIngredient()
  * - "delete-ingredient-submit-button" → deleteIngredient()
  */
-
+addIngredientSubmitButton.addEventListener("click", addIngredient);
+deleteIngredientSubmitButton.addEventListener("click", deleteIngredient);
 /*
  * TODO: Create an array to keep track of ingredients
  */
-
+const ingredients=[];
 /* 
  * TODO: On page load, call getIngredients()
  */
-
+document.addEventListener("click", getIngredients);
 
 /**
  * TODO: Add Ingredient Function
@@ -41,6 +47,31 @@ const addIngredientNameInput=document.getElementById("add-ingredient-name-input"
  */
 async function addIngredient() {
     // Implement add ingredient logic here
+    const ingredientName=addIngredientNameInput.value.trim();
+        try{
+            if(!ingredientName)
+            {
+                alert("Invalid ingredient name!");
+            }
+            const res= await fetch(`${BASE_URL}/ingredients`,{
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({ingredientName})
+            });
+            if(res.status===200)
+            {
+                addIngredientNameInput.value="";
+                await getIngredients();
+                refreshIngredientList();
+            }
+        }catch(e)
+        {
+            console.error("Add ingredient error: ", e);
+            alert("Failed to add ingredient.");
+        }
 }
 
 
@@ -86,4 +117,12 @@ async function deleteIngredient() {
  */
 function refreshIngredientList() {
     // Implement ingredient list rendering logic here
+    ingredientListContainer.innerHTML="";
+    ingredients.forEach(ingredient=>{
+        const li=document.createElement("li");
+        const p=document.createElement("p");
+        p.textContent=ingredient.name;
+        li.appendChild(p);
+        ingredientListContainer.appendChild(li);
+    });
 }

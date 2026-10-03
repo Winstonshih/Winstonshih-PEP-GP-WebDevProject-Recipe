@@ -105,6 +105,7 @@ window.addEventListener("DOMContentLoaded", () => {
             {
                 alert("Invalid recipe name or instructions!");
             }
+            const token=sessionStorage.getItem("auth-token");
             const res= await fetch(`${BASE_URL}/recipes`,{
                 method: "POST",
                 headers: {
@@ -113,10 +114,10 @@ window.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({recipeName, instructions})
             });
-            if(response.status===200)
+            if(res.status===200)
             {
-                addRecipeName="";
-                addRecipeInstructions="";
+                addRecipeName.value="";
+                addRecipeInstructions.value="";
                 await getRecipes();
             }
         }catch(e)
@@ -153,9 +154,10 @@ window.addEventListener("DOMContentLoaded", () => {
             });
             if(response.status===200)
             {
-                addRecipeName="";
-                addRecipeInstructions="";
+                addRecipeName.value="";
+                addRecipeInstructions.value="";
                 await getRecipes();
+                refreshRecipeList()
             }
         }catch(e)
         {
