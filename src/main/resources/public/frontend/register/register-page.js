@@ -8,7 +8,7 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * TODO: Get references to various DOM elements
  * - usernameInput, emailInput, passwordInput, repeatPasswordInput, registerButton
  */
-const usernameInput=document.getElementById("username-input");
+const usernameInput=document.getElementById("login-input");
 const emailInput=document.getElementById("email-input");
 const passwordInput=document.getElementById("password-input");
 const repeatPassword=document.getElementById("repeat-password-input");

@@ -165,7 +165,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({name, instructions})
             });
-            if(res.status===200)
+            if(res.ok)
             {
                 updateRecipeName.value="";
                 updateRecipeInstructions.value="";
