@@ -28,11 +28,11 @@ deleteIngredientSubmitButton.addEventListener("click", deleteIngredient);
 /*
  * TODO: Create an array to keep track of ingredients
  */
-const ingredients=[];
+let ingredients=[];
 /* 
  * TODO: On page load, call getIngredients()
  */
-document.addEventListener("click", getIngredients);
+getIngredients();
 
 /**
  * TODO: Add Ingredient Function

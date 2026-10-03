@@ -4,7 +4,7 @@
 
 const BASE_URL = "http://localhost:8081"; // backend URL
 
-let recipes = [];
+const recipes = [];
 
 // Wait for DOM to fully load before accessing elements
 window.addEventListener("DOMContentLoaded", () => {
